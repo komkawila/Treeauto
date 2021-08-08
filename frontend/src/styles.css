@@ -1,0 +1,85 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  background-color: #7a7878;
+  color: #000;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  background-color: #13fd46;
+}
+
+.switch.off {
+  border-radius: 30px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fd1313;
+}
+.switch.on {
+  border-radius: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.switch.off:before,
+.switch.off:after {
+  -webkit-transition: 0.6s;
+  transition: all 0.6s;
+}
+
+.switch.on:before,
+.switch.on:after {
+  -webkit-transition: 0.6s;
+  transition: all 0.6s;
+}
+
+.switch.off:before,
+.switch.on:before {
+  display: block;
+  position: absolute;
+  content: "";
+  height: 45px;
+  width: 45px;
+  left: 4px;
+  top: 2px;
+  background-color: #ffffff;
+  -webkit-transition: 0.6s;
+  transition: all 0.6s;
+  -webkit-transition-delay: 0.01s;
+  transition-delay: 0.01s;
+  border-radius: 50%;
+}
+
+.switch.off:after {
+  color: #fd1313;
+  display: block;
+  position: absolute;
+  content: "OFF";
+  font-weight: bold;
+  /* -o-transform: rotate(-270deg);
+    -webkit-transform: rotate(-270deg);
+    -ms-transform: rotate(-270deg);
+    transform: rotate(-270deg); */
+  left: 10px;
+  top: 15px;
+}
+
+.switch.on:before {
+  -webkit-transform: translateX(48px);
+  -ms-transform: translateX(48px);
+  transform: translateX(48px);
+}
+
+.switch.on:after {
+  color: #13fd46;
+  position: absolute;
+  content: "ON";
+  font-weight: bold;
+  /* -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg); */
+  left: 65px;
+  top: 15px;
+}

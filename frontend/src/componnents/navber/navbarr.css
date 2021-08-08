@@ -1,0 +1,108 @@
+.icons {
+  display: flex;
+  padding: 0.5rem 1rem;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.icons i {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+.icons-sub {
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+.icons h4 {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+.icons:hover {
+  color: rgb(128, 128, 128);
+}
+.icons:focus {
+  color: rgb(128, 128, 128);
+  background-color: wheat;
+}
+.visited {
+  background-color: yellow;
+}
+.d3 {
+  color: rgb(102, 255, 179);
+}
+.navbar-pc {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .navbar-pc {
+    display: block;
+    width: 100%;
+    background-color: #222b45;
+    padding: 1rem;
+    position: fixed;
+    margin-top: 0;
+    z-index: 5;
+  }
+
+  .hb-menu {
+    position: fixed;
+    cursor: pointer;
+    top: 1rem;
+    right: 2rem;
+    /* line-height: 0rem; */
+    /* margin-left: auto; */
+    /* margin-right: 1rem; */
+    font-size: 2rem;
+    color: white;
+    z-index: 5;
+  }
+
+}
+@media screen and (max-width: 992px) {
+  .navbar-pc {
+    display: block;
+    width: 100%;
+    background-color: #222b45;
+    padding: 1rem;
+    margin-top: 0;
+    z-index: 5;
+    position: fixed;
+  }
+
+  .hb-menu {
+    position: fixed;
+    cursor: pointer;
+    top: 1rem;
+    right: 2rem;
+    /* line-height: 0rem; */
+    /* margin-left: auto; */
+    /* margin-right: 1rem; */
+    font-size: 2rem;
+    color: white;
+    z-index: 5;
+  }
+}
+@media screen and (max-width: 600px) {
+  .navbar-pc {
+    display: block;
+    position: fixed;
+    width: 100%;
+    background-color: #222b45;
+    padding: 1rem;
+    margin-top: 0;
+    z-index: 5;
+  }
+
+  .hb-menu {
+    position: fixed;
+    cursor: pointer;
+    top: 1rem;
+    right: 2rem;
+    /* line-height: 0rem; */
+    /* margin-left: auto; */
+    /* margin-right: 1rem; */
+    font-size: 2rem;
+    color: white;
+    z-index: 5;
+  }
+}
