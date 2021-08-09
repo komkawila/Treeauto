@@ -5,7 +5,6 @@ SoftwareSerial NodeSerial(10, 11);
 #include "bme.h"
 #include "ec.h"
 #include "ldr.h"
-#define OUT(x) digitalWrite(OUTPUT_PIN,!x);
 
 unsigned long preSensor = 0;
 unsigned long postSensor = 0;
