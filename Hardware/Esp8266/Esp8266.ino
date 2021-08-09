@@ -37,11 +37,6 @@ int setOpen = 0;
 int setIntervals = 0;
 bool setEC = false;
 
-const char *host = "job.komkawila.com";
-const int httpsPort = 443;  //HTTPS= 443 and HTTP = 80
-
-const char fingerprint[] PROGMEM = "91 05 34 71 69 E5 8C CD 64 01 90 06 43 87 AA 70 52 43 C5 0B";
-
 char ntp_server1[20] = "pool.ntp.org";
 char ntp_server2[20] = "time.nist.gov";
 char ntp_server3[20] = "time.uni.net.th";
