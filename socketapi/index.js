@@ -6,7 +6,7 @@ const io = require("socket.io")(server, {
   },
 });
 
-const PORT = 4000;
+const PORT = 5001;
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 
 const MQTT_SERVER = "203.159.93.64";
