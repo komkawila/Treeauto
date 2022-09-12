@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: "203.159.93.64",
-  user: "treeauto",
+  host: "103.225.169.174",
+  user: "admin",
   password: "P@ssw0rd",
   database: "treeauto_db",
 });

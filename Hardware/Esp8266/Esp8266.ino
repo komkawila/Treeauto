@@ -15,9 +15,9 @@ SoftwareSerial NodeSerial(D2, D3);
 
 const char* ssid = "PAELECTRONIC_2.4GHz";
 const char* password = "12345678";
-const char* broker = "203.159.93.64";
+const char* broker = "103.225.169.174";
 const int port = 1883;
-const char* mqttUser = "treeauto";
+const char* mqttUser = "admin";
 const char* mqttPassword = "P@ssw0rd";
 
 
@@ -115,7 +115,7 @@ void setup() {
   if ((WiFiMulti.run() == WL_CONNECTED)) {
     HTTPClient http;
     Serial.print("[HTTP] begin...\n");
-    if (http.begin(espClient, "http://203.159.93.64:5000/setting")) {
+    if (http.begin(espClient, "http://103.225.169.174:5000/setting")) {
       Serial.print("[HTTP] GET...\n");
       int httpCode = http.GET();
       if (httpCode > 0) {
@@ -232,7 +232,7 @@ void loop() {
         if ((WiFiMulti.run() == WL_CONNECTED)) {
           HTTPClient http;
           Serial.print("[HTTP] begin...\n");
-          if (http.begin(espClient, "http://203.159.93.64:5000/insertsensor/" + String(temperatures, 2) + "/" + String(light))) {
+          if (http.begin(espClient, "http://103.225.169.174:5000/insertsensor/" + String(temperatures, 2) + "/" + String(light))) {
             Serial.print("[HTTP] GET...\n");
             int httpCode = http.GET();
             if (httpCode > 0) {
@@ -253,7 +253,7 @@ void loop() {
           if ((WiFiMulti.run() == WL_CONNECTED)) {
             HTTPClient http;
             Serial.print("[HTTP] begin...\n");
-            if (http.begin(espClient, "http://203.159.93.64:5000/insertec/" + String(ecVal, 2))) {
+            if (http.begin(espClient, "http://103.225.169.174:5000/insertec/" + String(ecVal, 2))) {
               Serial.print("[HTTP] GET...\n");
               int httpCode = http.GET();
               if (httpCode > 0) {
