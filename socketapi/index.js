@@ -9,10 +9,10 @@ const io = require("socket.io")(server, {
 const PORT = 5001;
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 
-const MQTT_SERVER = "203.159.93.64";
+const MQTT_SERVER = "103.225.169.174";
 const MQTT_PORT = "1883";
 //if your server don't have username and password let blank.
-const MQTT_USER = "treeauto"; 
+const MQTT_USER = "admin"; 
 const MQTT_PASSWORD = "P@ssw0rd";
 
 // Connect MQTT
