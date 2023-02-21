@@ -10,13 +10,12 @@ import cors from "cors";
 
 const app = express();
 
-// Linear
-const x = [1, 2, 3, 4];
-const y = [1, 2, 3, 4];
-const lr = linearRegression(x, y); // if you want values into an Object
+const x = [30.41, 29.86, 30.44];
+const y = [33.41, 22.86, 35.44];
+const lr = linearRegression(x, y, true); // if you want values into an Object
 
-// executed by default, it gives the same result as above
-// computeLoudLinearRegression(x, y); 
+// executed only if true in linearRegression Function, it gives the same result as above
+// computeLightLinearRegression(x, y);  
 
 const pred1 = predict([1, 2], lr);
 const pred2 = predict(6, lr);
@@ -82,7 +81,17 @@ app.get("/ecavg", (req, res) => {
     }
   });
 });
-
+// future
+app.get("/ecavgfuture", (req, res) => {
+  db.query("SELECT TRUNCATE(avg(logec_value), 2) as avg_ec, avg(logec_value) * ROUND(RAND() * (-100 - 100) + 00) as fomular, DATE(logec_times) as date FROM logec_tb GROUP BY DATE(logec_times) ORDER BY logec_times ASC", function (err, result, fields) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      //   console.log(err);
+    }
+  });
+});
 app.get("/setting", (req, res) => {
   db.query(
     "SELECT * FROM setting_tb WHERE setting_id = 1",

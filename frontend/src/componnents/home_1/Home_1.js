@@ -190,18 +190,25 @@ function Home_1() {
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-    if (parseFloat(lightValue) >= parseFloat(ecMax)) {
+    console.log("ecValue = ")
+    console.log(parseFloat(ecValue))
+    console.log("ecMax = ")
+    console.log(parseFloat(ecMax))
+    if (parseFloat(ecValue) >= parseFloat(ecMax)) {
+      console.log("EC มากกว่ากำหนด")
       Toast.fire({
         icon: 'error',
         title: 'EC มากกว่ากำหนด'
       })
-    } else if (parseFloat(lightValue) <= parseFloat(ecMax)) {
+    } else if (parseFloat(ecValue) <= parseFloat(ecMin)) {
+      console.log("EC ต่ำกว่ากำหนด")
       Toast.fire({
         icon: 'error',
         title: 'EC ต่ำกว่ากำหนด'
       })
     }
-  }, [lightValue])
+  }, [ecValue])
+
   function toggle() {
     setToggleState(toggleState === "off" ? "on" : "off");
     var a = toggleState === "off" ? "on" : "off";

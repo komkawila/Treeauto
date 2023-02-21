@@ -5,7 +5,9 @@ import Charts from "../stock/Charts";
 import ChartEc from "../stock/ChartEc";
 import ChartLight from "../stock/ChartLight";
 import ChartTemp from "../stock/ChartTemp";
-
+import ChartEcFuture from "../stock/ChartEcFuture";
+import ChartEcFuture2Line from "../stock/ChartEcFuture2Line";
+ 
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 
@@ -129,7 +131,11 @@ function Home_2() {
           </div>
           <br/>
           <div className="row chartall">
-            <ChartEc />
+            <ChartEcFuture />
+          </div>
+          <br/>
+          <div className="row chartall">
+            <ChartEcFuture2Line />
           </div>
           <br/>
         </div>
