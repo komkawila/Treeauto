@@ -1,7 +1,30 @@
-const express = require("express");
+// const express = require("express");
+// const app = express();
+// const mysql = require("mysql");
+// var cors = require("cors");
+// const linear = require("clementreiffers-linear-regression");
+import { linearRegression, predict } from "clementreiffers-linear-regression";
+import express from "express";
+import mysql from "mysql";
+import cors from "cors";
+
 const app = express();
-const mysql = require("mysql");
-var cors = require("cors");
+
+// Linear
+const x = [1, 2, 3, 4];
+const y = [1, 2, 3, 4];
+const lr = linearRegression(x, y); // if you want values into an Object
+
+// executed by default, it gives the same result as above
+// computeLoudLinearRegression(x, y); 
+
+const pred1 = predict([1, 2], lr);
+const pred2 = predict(6, lr);
+
+console.log(lr);
+// END Linear
+
+
 app.use(
   express.urlencoded({
     extended: true,
@@ -28,6 +51,16 @@ app.get("/sensor", (req, res) => {
     }
   });
 });
+app.get("/sensoravg", (req, res) => {
+  db.query("SELECT TRUNCATE(avg(log_light), 2) as avg_light, TRUNCATE(avg(log_temp), 2) as avg_temp, DATE(log_times) as date FROM log_tb GROUP BY DATE(log_times)", function (err, result, fields) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      //   console.log(err);
+    }
+  });
+});
 
 app.get("/ec", (req, res) => {
   db.query("SELECT * FROM logec_tb", function (err, result, fields) {
@@ -39,6 +72,17 @@ app.get("/ec", (req, res) => {
     }
   });
 });
+app.get("/ecavg", (req, res) => {
+  db.query("SELECT TRUNCATE(avg(logec_value), 2) as avg_ec, DATE(logec_times) as date FROM logec_tb GROUP BY DATE(logec_times)", function (err, result, fields) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      //   console.log(err);
+    }
+  });
+});
+
 app.get("/setting", (req, res) => {
   db.query(
     "SELECT * FROM setting_tb WHERE setting_id = 1",
@@ -106,8 +150,8 @@ app.post("/updateuser", (req, res) => {
   const user_phone = req.body.user_phone;
   db.query(
     "UPDATE user_tb SET user_farm = ?,user_firstname = ?,user_lastname = ?,user_phone = ? WHERE user_uid ='" +
-      user_uid +
-      "'",
+    user_uid +
+    "'",
     [user_farm, user_firstname, user_lastname, user_phone],
     function (err, result, fields) {
       if (err) {
@@ -247,12 +291,28 @@ app.put("/opentime", (req, res) => {
   );
 });
 
+app.put("/ecminmax", (req, res) => {
+  const ec_min = req.body.ec_min;
+  const ec_max = req.body.ec_max;
+  db.query(
+    `UPDATE setting_tb SET ec_min=${ec_min},ec_max=${ec_max} WHERE setting_id = 1`,
+    function (err, result, fields) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+        //   console.log(err);
+      }
+    }
+  );
+});
+
 app.put("/intervaltime", (req, res) => {
   const val = req.body.val;
   db.query(
     "UPDATE setting_tb SET setting_interval_time=" +
-      val +
-      " WHERE setting_id = 1",
+    val +
+    " WHERE setting_id = 1",
     function (err, result, fields) {
       if (err) {
         console.log(err);

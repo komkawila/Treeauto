@@ -3,13 +3,16 @@ import Navbar from "../navber/Navbar";
 import { Chart, LineAdvance } from "bizcharts";
 import Charts from "../stock/Charts";
 import ChartEc from "../stock/ChartEc";
+import ChartLight from "../stock/ChartLight";
+import ChartTemp from "../stock/ChartTemp";
+
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useHistory } from "react-router-dom";
-// 数据源
+
 const data = [
   {
     month: "Jan",
@@ -109,13 +112,26 @@ function Home_2() {
       <Header title="chart"/>
       <div className="chart-page">
         <div className="dashborad-data">
-          <div className="row chartall">
+          {/* <div className="row chartall">
             <Charts />
           </div>
           <br/>
           <div className="row chartall">
             <ChartEc />
+          </div> */}
+          
+          <div className="row chartall">
+            <ChartLight />
           </div>
+          <br/>
+          <div className="row chartall">
+            <ChartTemp />
+          </div>
+          <br/>
+          <div className="row chartall">
+            <ChartEc />
+          </div>
+          <br/>
         </div>
       </div>
     </div>

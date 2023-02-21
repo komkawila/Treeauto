@@ -11,14 +11,14 @@ class ChartEc extends Component {
   }
 
   componentDidMount() {
-    fetch(api+ "ec")
+    fetch(api+ "ecavg")
       .then((res) => res.json())
       .then((data) => {
         var dps = [];
         for (var i = 0; i < data.length; i++) {
           dps.push({
-            x: new Date(data[i].logec_times),
-            y: Number(data[i].logec_value),
+            x: new Date(data[i].date),
+            y: Number(data[i].avg_ec),
           });
         }
         this.setState({
@@ -31,13 +31,13 @@ class ChartEc extends Component {
   render() {
     const options = {
       title: {
-        text: "กราฟแสดงข้อมูล EC sensor",
+        text: "กราฟแสดงข้อมูล EC เฉลี่ย",
       },
       theme: "dark2",
       backgroundColor: "#222b45",
       subtitles: [
         {
-          text: "__",
+          text: "EC sensor ( mS / cm )",
         },
       ],
       charts: [

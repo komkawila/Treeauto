@@ -13,9 +13,13 @@ import Swal from "sweetalert2";
 // import "./json";
 import { data, dataLight, dataTemp } from "./json";
 
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import firebase from "firebase/app";
 import "firebase/auth";
 import { useHistory } from "react-router-dom";
+
+
 var valueEc = [];
 function Home_1() {
   const history = useHistory();
@@ -64,6 +68,8 @@ function Home_1() {
   const [toggleState, setToggleState] = useState("off");
   const [gaugeEc, setGaugeEc] = useState(0);
 
+  const [ecMin, setEcMin] = useState(0);
+  const [ecMax, setEcMax] = useState(0);
   useEffect(async () => {
     try {
       const ecval = await axios.get(api + "ec");
@@ -73,6 +79,8 @@ function Home_1() {
       setSetTemp(settingval.data[0].setting_temp);
       setSetLight(settingval.data[0].setting_light);
       setToggleState(settingval.data[0].setting_status_ec == 0 ? "off" : "on");
+      setEcMin(settingval.data[0].ec_min);
+      setEcMax(settingval.data[0].ec_max);
     } catch (err) {
       console.error(err);
     }
@@ -117,8 +125,8 @@ function Home_1() {
       }
     });
   };
+
   const saveEc = () => {
-    console.log(ecValue);
   };
 
   // console.log(dataEcs);
@@ -163,14 +171,37 @@ function Home_1() {
           )
         );
       }
-    } catch {}
+    } catch { }
 
     //  console.log(messages.substring(messages.indexOf("ecVal") + 6,messages.indexOf("}")));
 
     // console.log((JSON.stringify(messages));
   }, [messages]);
   // console.log(ecValue);
-
+  useEffect(() => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    if (parseFloat(lightValue) >= parseFloat(ecMax)) {
+      Toast.fire({
+        icon: 'error',
+        title: 'EC มากกว่ากำหนด'
+      })
+    } else if (parseFloat(lightValue) <= parseFloat(ecMax)) {
+      Toast.fire({
+        icon: 'error',
+        title: 'EC ต่ำกว่ากำหนด'
+      })
+    }
+  }, [lightValue])
   function toggle() {
     setToggleState(toggleState === "off" ? "on" : "off");
     var a = toggleState === "off" ? "on" : "off";
@@ -188,7 +219,7 @@ function Home_1() {
   // setGaugeLight();
   // setGaugeEcs();
 
-  
+
   // const [filterDataEc, setFilterDataEc] = useState();
   // const f = dataEcs.filter((dataEcs) => dataEcs.ec_id === ecValue);
   // const maxvalu = 20;
@@ -206,7 +237,7 @@ function Home_1() {
   const [ecValues, setEcValues] = useState("000");
   const filterDataEc = dataEcs.filter(dataEcs => dataEcs.ec_id == ecValues)
   // console.log(filterDataEc);
-  
+
   const maxvalu = 5;
   const ecmin = filterDataEc[0].ec_min;
   const ecmid = filterDataEc[0].ec_max - filterDataEc[0].ec_min;
@@ -218,11 +249,35 @@ function Home_1() {
   const b = ecmid / maxvalu;
   const c = ecmax / maxvalu;
   console.log("a = " + a + " b = " + b + " c = " + c);
+
+  const [ecaler, setECAlert] = useState(false)
+  const saveMinmaxEc = () => {
+
+    console.log(ecValue);
+    axios.put(api + "ecminmax", { ec_min: ecMin, ec_max: ecMax }).then((res) => {
+      if (res.status == 200) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'บันทึกสำเร็จ',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+
+  }
+
+  useEffect(() => {
+
+  }, [ecaler])
+
   return (
     <div className="App">
       <Navbar colormenu1={true} colormenu2={false} colormenu3={false} />
       <Header title="home" />
       <div className="dashborad-data">
+
         <div className="row ">
           <div className="col-md-4 box">
             <div className="box-censer">
@@ -236,7 +291,7 @@ function Home_1() {
                   arcsLength={[0.4, 0.4, 0.2]}
                   colors={["#5BE12C", "#F5CD19", "#EA4228"]}
                   percent={gaugeTemp}
-                  // arcPadding={0.002}
+                // arcPadding={0.002}
                 />
                 <br />
                 <p>อุณหภูมิ : {tempValue} °C</p>
@@ -256,7 +311,7 @@ function Home_1() {
                   arcsLength={[0.4, 0.4, 0.2]}
                   colors={["#5BE12C", "#F5CD19", "#EA4228"]}
                   percent={gaugeLight}
-                  // arcPadding={0.002}
+                // arcPadding={0.002}
                 />
                 <br />
                 <p>แสง : {lightValue} %</p>
@@ -272,11 +327,11 @@ function Home_1() {
                   hideText={true}
                   animate={false}
                   nrOfLevels={5}
-                  arcsLength={[a,b,c]}
+                  arcsLength={[a, b, c]}
                   colors={["#EA4228", "#5BE12C", "#EA4228"]}
                   percent={gaugeEcs}
                   arcPadding={0}
-                  
+
                 />
                 <br />
                 <p>EC : {ecValue} mS/cm</p>
@@ -455,11 +510,26 @@ function Home_1() {
                     min : {filterDataEc[0].ec_min} , max : {filterDataEc[0].ec_max} ms/cm
                   </p>
                 </div>
+                ตั้งค่าการแจ้งเตือน EC
                 <div className="toggle-ec">
                   <p className="pp texx-set ceenter">เปิด - ปิด EC</p>
                   {/* <Toggle /> */}
                   <div className={`switch ${toggleState}`} onClick={toggle} />
                 </div>
+                <div className="row">
+                  <div className="col-4">
+                    <p for="Min">Min</p>
+                    <input type="number" readonly class="form-control" id="Min" value={ecMin} onChange={e => setEcMin(e.target.value)} />
+                  </div>
+                  <div className="col-4">
+                    <p for="Max" >Max</p>
+                    <input type="number" readonly class="form-control" id="Max" value={ecMax} onChange={e => setEcMax(e.target.value)} />
+                  </div>
+                  <div class="col-4">
+                    <button class="btn btn-primary mb-3 p-5" onClick={() => saveMinmaxEc()}>บันทึก</button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
