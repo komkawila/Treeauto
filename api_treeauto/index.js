@@ -9,7 +9,7 @@ var cors = require("cors");
 // import cors from "cors";
 
 // const app = express();
-
+/*
 const x = [30.41, 29.86, 30.44];
 const y = [33.41, 22.86, 35.44];
 const lr = linearRegression(x, y, true); // if you want values into an Object
@@ -23,7 +23,7 @@ const pred2 = predict(6, lr);
 console.log(lr);
 // END Linear
 
-
+*/
 app.use(
   express.urlencoded({
     extended: true,
