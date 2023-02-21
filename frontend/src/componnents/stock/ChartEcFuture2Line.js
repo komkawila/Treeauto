@@ -17,13 +17,15 @@ class Charts extends Component {
                 var dps = [];
                 var dpx = [];
                 for (var i = 0; i < data.length; i++) {
+                    
                     dps.push({
                         x: new Date(data[i].date),
                         y: Number(data[i].avg_ec)
                     })
                     dpx.push({
                         x: new Date(data[i].date),
-                        y: Number(parseFloat(data[i].avg_ec) + (parseFloat(data[i].fomular) / 1000)),
+                        // y: Number(parseFloat(data[i].avg_ec) + (parseFloat(data[i].fomular) / 1000)),
+                        y: Number(parseFloat(data[i].fomular)),
                     });
                 }
                 this.setState({

@@ -83,11 +83,46 @@ app.get("/ecavg", (req, res) => {
 });
 // future
 app.get("/ecavgfuture", (req, res) => {
+  // db.query("SELECT TRUNCATE(avg(logec_value), 2) as avg_ec, avg(logec_value) * ROUND(RAND() * (-100 - 100) + 00) as fomular, DATE(logec_times) as date FROM logec_tb GROUP BY DATE(logec_times) ORDER BY logec_times ASC", function (err, result, fields) {
   db.query("SELECT TRUNCATE(avg(logec_value), 2) as avg_ec, avg(logec_value) * ROUND(RAND() * (-100 - 100) + 00) as fomular, DATE(logec_times) as date FROM logec_tb GROUP BY DATE(logec_times) ORDER BY logec_times ASC", function (err, result, fields) {
     if (err) {
       console.log(err);
     } else {
-      res.send(result);
+      var datares = [];
+      result.map(e => {
+        console.log(e)
+        var date1 = new Date(e.date);  
+        date1.setDate(date1.getDate() + 1);      
+        datares.push({
+          avg_ec: e.avg_ec,
+          fomular: parseFloat(e.avg_ec) + parseFloat(e.fomular / 1000),
+          date: date1
+        })
+      })
+
+
+
+      var date = new Date(datares[datares.length - 1].date);
+      date.setDate(date.getDate() + 1);
+      datares.push({
+        "avg_ec": 0,
+        // "avg_ec": datares[datares.length - 1].avg_ec,
+        "fomular": (
+          datares[datares.length - 9].avg_ec +
+          datares[datares.length - 8].avg_ec +
+          datares[datares.length - 7].avg_ec +
+          datares[datares.length - 6].avg_ec +
+          datares[datares.length - 5].avg_ec +
+          datares[datares.length - 4].avg_ec +
+          datares[datares.length - 3].avg_ec +
+          datares[datares.length - 2].avg_ec +
+          datares[datares.length - 1].avg_ec) / 9,
+        "date": date
+      })
+
+      // console.log(result[result.length - 1].date)
+      // console.log(date)
+      res.send(datares);
       //   console.log(err);
     }
   });
