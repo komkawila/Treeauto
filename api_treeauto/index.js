@@ -1,14 +1,14 @@
-// const express = require("express");
-// const app = express();
-// const mysql = require("mysql");
-// var cors = require("cors");
-// const linear = require("clementreiffers-linear-regression");
-import { linearRegression, predict } from "clementreiffers-linear-regression";
-import express from "express";
-import mysql from "mysql";
-import cors from "cors";
-
+const express = require("express");
 const app = express();
+const mysql = require("mysql");
+var cors = require("cors");
+// const linear = require("clementreiffers-linear-regression");
+// import { linearRegression, predict } from "clementreiffers-linear-regression";
+// import express from "express";
+// import mysql from "mysql";
+// import cors from "cors";
+
+// const app = express();
 
 const x = [30.41, 29.86, 30.44];
 const y = [33.41, 22.86, 35.44];

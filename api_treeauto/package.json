@@ -9,7 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "clementreiffers-linear-regression": "^2.0.3",
     "cors": "^2.8.5",
