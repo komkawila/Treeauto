@@ -517,12 +517,12 @@ function Home_1() {
                     min : {filterDataEc[0].ec_min} , max : {filterDataEc[0].ec_max} ms/cm
                   </p>
                 </div>
-                ตั้งค่าการแจ้งเตือน EC
+                {/* ตั้งค่าการแจ้งเตือน EC
                 <div className="toggle-ec">
                   <p className="pp texx-set ceenter">เปิด - ปิด EC</p>
-                  {/* <Toggle /> */}
+                  
                   <div className={`switch ${toggleState}`} onClick={toggle} />
-                </div>
+                </div> */}
                 <div className="row">
                   <div className="col-4">
                     <p for="Min">Min</p>
